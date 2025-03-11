@@ -1,11 +1,15 @@
 package com.example.myapplication.login
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -20,6 +24,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
@@ -30,21 +35,32 @@ fun LoginScreen(navController: NavHostController) {
     val passwordState = remember {
         mutableStateOf("")
     }
-    val context = LocalContext.current
 
     Column(modifier = Modifier.fillMaxSize(),
 
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Логин")
+            Text(
+                text = "Логин",
+                modifier = Modifier
+                    .padding(start = 16.dp, bottom = 8.dp),
+                fontSize = 18.sp,
+                color = Color.Blue
+            )
             TextField(
                 value = emailState.value,
                 onValueChange =  {emailState.value = it},
                 label = { Text("Введите почту")})
         Spacer(modifier = Modifier.height(10.dp))
 
-        Text(text = "Пароль")
+        Text(
+            text = "Пароль",
+            modifier = Modifier
+                .padding(start = 16.dp, bottom = 8.dp),
+            fontSize = 18.sp,
+            color = Color.Blue
+        )
         TextField(
             value = passwordState.value,
             onValueChange = {passwordState.value = it},
@@ -60,18 +76,26 @@ fun LoginScreen(navController: NavHostController) {
 
        Spacer(modifier = Modifier.height(10.dp))
 
-       Text(
-           text = buildAnnotatedString {
-               append("Нет аккаунта? ")
-               withStyle(style = SpanStyle(color = Color.Blue, textDecoration = TextDecoration.Underline)) {
-                   append("Создать аккаунт")
-               }
-           },
-//           modifier = Modifier
-//               .padding((16.dp))
-//               .clickable {
-//                   context.startActivity(Intent(context, SecondActivity()::class.java))
-//               }
-       )
+        Row(
+            modifier = Modifier.padding(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        )
+        {
+
+            Text(
+                text = "Нет аккаунта? ",
+                color = Color.Black
+            )
+
+            Text(
+                text = "Зарегестрируйтесь! ",
+                color = Color.Black,
+                textDecoration = TextDecoration.Underline,
+                modifier = Modifier.clickable {
+                    navController.navigate("registration")
+                }
+            )
+        }
+
     }
 }

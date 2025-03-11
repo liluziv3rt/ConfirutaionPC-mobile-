@@ -1,5 +1,6 @@
 package com.example.myapplication.Navigation
 
+import SecondActivity
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
@@ -21,6 +22,10 @@ fun NavHost()
         composable("splash")
         {
             SplashScreen(navController)
+        }
+        composable("registration")
+        {
+            SecondActivity(navController)
         }
     }
 
